@@ -4,6 +4,7 @@ CREATE DATABASE stock CHARACTER SET 'UTF8';
 
 USE stock;
 
+--tables--
 
 CREATE TABLE article (
   id integer NOT NULL,
@@ -58,11 +59,13 @@ CREATE TABLE unit (
   type varchar(30) NOT NULL
 ) ENGINE=InnoDB;
 
+--create primary key--
 
 ALTER TABLE article
   ADD PRIMARY KEY (id),
   ADD KEY category_name (category_name),
-  ADD KEY unit_type (unit_type);
+  ADD KEY unit_type (unit_type),
+  ADD KEY supplier (supplier);
 
 
 
@@ -114,7 +117,6 @@ ALTER TABLE article
   ADD CONSTRAINT article_ibfk_5 FOREIGN KEY (unit_type) REFERENCES unit (type);
 
 
-
 ALTER TABLE article_movement
   ADD CONSTRAINT article_movement_ibfk_1 FOREIGN KEY (movement_id) REFERENCES movement (id);
 
@@ -126,5 +128,10 @@ ALTER TABLE buying_price
 ALTER TABLE movement
   ADD CONSTRAINT movement_ibfk_1 FOREIGN KEY (type_movement) REFERENCES type_movement (type);
 
+ALTER TABLE article
+  ADD COLUMN suppliername_id integer; 
+
+ALTER TABLE article
+  ADD CONSTRAINT article_ibfk_3 FOREIGN KEY (suppliername_id) REFERENCES supplier (id);
 
 
